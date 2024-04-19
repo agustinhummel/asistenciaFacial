@@ -1,7 +1,7 @@
 'use client'
 import { redirect, useRouter } from "next/navigation";
 import { useState } from "react";
-
+import { Button } from 'antd';
 export default function Home() {
 
 const [email,setEmail] = useState('')
@@ -20,6 +20,7 @@ if(email=="admin@admin.com"){
 
   return (
     <main>
+      <Button type="primary">Primary Button</Button> 
       <section className="relative bg-sky-800 flex flex-wrap font-serif lg:h-screen lg:items-center">
         <div className="w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-24">
           <div className="mx-auto max-w-lg text-center ">
