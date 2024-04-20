@@ -14,7 +14,7 @@ module.exports = {
         }),
       10);
     let medics = []
-/*     for (let i = 0; i < 40; i++) {
+     for (let i = 0; i < 40; i++) {
       medics.push({
         id: uuid(),
         fullname: faker.person.fullName(),
@@ -25,12 +25,12 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       })
-    } */
+    } 
     medics.push({
       id: uuid(),
       fullname: faker.person.fullName(),
       password: await bcrypt.hash('012345689',10),
-      email: 'test@test.com',
+      email: 'medictest@test.com',
       birthdate: faker.date.birthdate({ min: 18, max: 65, mode: 'age' }),
       nid: faker.number.int({ min: 1000000000, max: 9999999999 }),
       createdAt: new Date(),

@@ -5,32 +5,22 @@ const {faker} = require('@faker-js/faker')
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    const hashedPwd = await bcrypt.hash(
-      faker.internet.password(
-        {
-          length: 10,
-          memorable: true,
-          pattern: /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@$!%?&_-])[A-Za-z\d@$!%?&_-]{8,}$/
-        }),
-      10);
     let patients = []
-/*     for (let i = 0; i < 40; i++) {
+     for (let i = 0; i < 80; i++) {
       patients.push({
         id: uuid(),
         fullname: faker.person.fullName(),
-        password: hashedPwd,
         email: faker.internet.email(),
         birthdate: faker.date.birthdate({ min: 18, max: 65, mode: 'age' }),
         nid: faker.number.int({ min: 1000000000, max: 9999999999 }),
         createdAt: new Date(),
         updatedAt: new Date(),
       })
-    } */
+    } 
     patients.push({
       id: uuid(),
       fullname: faker.person.fullName(),
-      password: await bcrypt.hash('012345689',10),
-      email: 'test@test.com',
+      email: 'patienttest@test.com',
       birthdate: faker.date.birthdate({ min: 18, max: 65, mode: 'age' }),
       nid: faker.number.int({ min: 1000000000, max: 9999999999 }),
       createdAt: new Date(),

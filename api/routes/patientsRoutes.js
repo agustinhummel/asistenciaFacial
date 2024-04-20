@@ -13,6 +13,6 @@ const {verifyJWT} = require('../middlewares/jwt.js')
 router.post("/",createPatient);
 router.put("/", verifyJWT,editPatient);
 router.delete("", verifyJWT,deletePatient);
-router.get("", verifyJWT,getPatient);
+router.get("",getPatient);
 
 module.exports = router;
