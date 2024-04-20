@@ -34,7 +34,9 @@ if(email=="admin@admin.com"){
 
               <div className="relative">
                 <input
-                  onChange={ (e) => { setEmail(e.target.value)}}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
                   type="email"
                   className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                   placeholder="Ingresa el Email"
@@ -94,12 +96,8 @@ if(email=="admin@admin.com"){
               </div>
             </div>
             <div className="flex items-center justify-between">
-              
               <button
-              onClick={
-                ()=>clickLogin()
-              }
-                
+                onClick={() => clickLogin()}
                 className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
               >
                 Ingresar
