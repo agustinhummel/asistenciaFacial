@@ -20,7 +20,6 @@ if(email=="admin@admin.com"){
 
   return (
     <main>
-      <Button type="primary">Primary Button</Button> 
       <section className="relative bg-sky-800 flex flex-wrap font-serif lg:h-screen lg:items-center">
         <div className="w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-24">
           <div className="mx-auto max-w-lg text-center ">
@@ -29,7 +28,7 @@ if(email=="admin@admin.com"){
             <p className="mt-4 ">Plataforma de control de asistencia de pacientes del Instituto Delpiano</p>
           </div>
 
-          <form action="#" className="mx-auto mb-0 mt-8 max-w-md space-y-4">
+          <div  className="mx-auto mb-0 mt-8 max-w-md space-y-4">
             <div>
               <label className="sr-only">Email</label>
 
@@ -104,7 +103,7 @@ if(email=="admin@admin.com"){
                 Ingresar
               </button>
             </div>
-          </form>
+          </div>
         </div>
 
         <div className="relative h-64 w-full sm:h-96 lg:h-full lg:w-1/2">
