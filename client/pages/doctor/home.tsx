@@ -1,8 +1,20 @@
 import NavBar from './../../components/navBar';
 import Footer from './../../components/footer';
 import CheckboxAsistencia from "./../../components/checkboxAsitencia";
+import { useEffect } from 'react';
+import { ObtenerPacientes } from '../../apiCalls';
 
 export default function home() {
+
+  useEffect(() => {
+    const obtenerDatos= async ()=> {
+      console.log(await ObtenerPacientes())
+    }
+    obtenerDatos()
+    
+  }, [])
+
+
   const citas = [
     { id: 1, paciente: "Hummel Agustin", fecha: "10-04-2024", hora: "11:30 am", obraSocial: "OSDE" },
     { id: 2, paciente: "Fulanito Perez", fecha: "16-04-2024", hora: "13:30 am", obraSocial: "IPS" },

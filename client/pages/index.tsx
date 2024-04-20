@@ -1,22 +1,22 @@
-'use client'
-import { redirect, useRouter } from "next/navigation";
+"use client";
+import {  useRouter } from "next/navigation";
 import { useState } from "react";
-import { Button } from 'antd';
+
+
 export default function Home() {
+  const [email, setEmail] = useState("");
 
-const [email,setEmail] = useState('')
+  const router = useRouter();
 
-const router = useRouter()
 
-const clickLogin = ()=> {
-  console.log(email)
-if(email=="admin@admin.com"){
-  router.push('admin/home')
-}else{
-  router.push("doctor/home")
-}
-}
-
+  const clickLogin = () => {
+    console.log(email);
+    if (email == "admin@admin.com") {
+      router.push("admin/home");
+    } else {
+      router.push("doctor/home");
+    }
+  };
 
   return (
     <main>
@@ -25,10 +25,13 @@ if(email=="admin@admin.com"){
           <div className="mx-auto max-w-lg text-center ">
             <h1 className="text-2xl font-bold sm:text-3xl">Bienvenidos !!!</h1>
 
-            <p className="mt-4 ">Plataforma de control de asistencia de pacientes del Instituto Delpiano</p>
+            <p className="mt-4 ">
+              Plataforma de control de asistencia de pacientes del Instituto
+              Delpiano
+            </p>
           </div>
 
-          <div  className="mx-auto mb-0 mt-8 max-w-md space-y-4">
+          <div className="mx-auto mb-0 mt-8 max-w-md space-y-4">
             <div>
               <label className="sr-only">Email</label>
 
