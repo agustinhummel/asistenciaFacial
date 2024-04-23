@@ -6,6 +6,9 @@ const { uuid} = require("uuidv4")
 module.exports = (sequelize, DataTypes) => {
   class Turno extends Model {
     static associate(models) {
+      Turno.belongsTo(models.Patient, { foreignKey: 'patientId', as: 'patient'});
+      Turno.belongsTo(models.Medic, { foreignKey: 'medicId',as: 'medic' });
+
     }
   }
   Turno.init({
