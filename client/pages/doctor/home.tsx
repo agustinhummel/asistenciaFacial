@@ -20,7 +20,7 @@ export default function home() {
 
   function formatDate(dateString: any) {
     const date = new Date(dateString);
-    const options = { year: "numeric", month: "long", day: "numeric" };
+    const options:Intl.DateTimeFormatOptions = { year: "numeric", month: "long", day: "numeric" };
     return date.toLocaleDateString("es-ES", options); // Puedes ajustar el idioma según sea necesario
   }
 
