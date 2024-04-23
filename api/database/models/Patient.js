@@ -1,4 +1,5 @@
 'use strict';
+
 const {
   Model
 } = require('sequelize');
@@ -6,6 +7,7 @@ const { uuid} = require("uuidv4")
 module.exports = (sequelize, DataTypes) => {
   class Patient extends Model {
     static associate(models) {
+      Patient.hasMany(models.Turno,{foreignKey: 'patientId', as: 'turnos'})
     }
   }
   Patient.init({

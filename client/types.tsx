@@ -21,6 +21,16 @@ export interface Medico {
   updatedAt: string;
 }
 
+export interface Turno {
+  id: string;
+  fecha: string;
+  patientId: string;
+  medicId: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+
 
 
 

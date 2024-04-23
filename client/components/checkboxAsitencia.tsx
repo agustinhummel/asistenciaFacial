@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 
+
 function CheckboxAsistencia({ id }) {
   // Estado para controlar si se marca la asistencia o no
   const [asistencia, setAsistencia] = useState(false);

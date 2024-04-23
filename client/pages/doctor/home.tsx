@@ -1,26 +1,26 @@
 import NavBar from './../../components/navBar';
 import Footer from './../../components/footer';
 import CheckboxAsistencia from "./../../components/checkboxAsitencia";
-import { Paciente } from "../../types";
+import { Paciente, Turno } from "../../types";
 import { useState, useEffect } from "react";
-import { ObtenerPacientes } from '../../apiCalls';
-
-
+import { ObtenerPacientes, ObtenerTurnos } from "../../apiCalls";
 
 export default function home() {
   const [data, setData] = useState<Paciente[]>([]);
+  const [fecha, setFecha] = useState<Turno[]>([]);
 
   useEffect(() => {
-    const obtenerDatos= async ()=> {
-      setData(await ObtenerPacientes())
-    }
-    obtenerDatos()
-    
-  }, [])
+    const obtenerDatos = async () => {
+      setData(await ObtenerPacientes());
+      setFecha(await ObtenerTurnos());
+    };
+    obtenerDatos();
+    ObtenerTurnos();
+  }, []);
 
   function formatDate(dateString: any) {
     const date = new Date(dateString);
-    const options:Intl.DateTimeFormatOptions = { year: "numeric", month: "long", day: "numeric" };
+    const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "long", day: "numeric" };
     return date.toLocaleDateString("es-ES", options); // Puedes ajustar el idioma según sea necesario
   }
 

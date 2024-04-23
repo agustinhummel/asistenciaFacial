@@ -25,3 +25,14 @@ export const ObtenerMedicos = async (email?: string) => {
     return null
   }
 };
+
+export const ObtenerTurnos = async (fecha?: string) => {
+  try {
+    const response = fecha ? await fetch(`${urlBackend}/turno?fecha=${fecha}`) : await fetch(`${urlBackend}/turno`);
+    const apiRespuesta = await response.json();
+    return apiRespuesta.data.patient;
+  } catch (error) {
+    console.error("Error: obtener Turnos", error);
+    return null;
+  }
+};
