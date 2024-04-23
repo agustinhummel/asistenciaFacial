@@ -5,9 +5,11 @@ export const ObtenerPacientes = async (email?: string) => {
     const response = email
       ? await fetch(`${urlBackend}/patient?email=${email}`)
       : await fetch(`${urlBackend}/patient`);
-    return await response.json();
+    const apiRespuesta = await response.json();
+    return apiRespuesta.data.patient
   } catch (error) {
     console.error("Error: obtener Pacientes", error);
+    return null
   }
 };
 
@@ -16,10 +18,10 @@ export const ObtenerMedicos = async (email?: string) => {
     const response = email
       ? await fetch(`${urlBackend}/medic?email=${email}`)
       : await fetch(`${urlBackend}/medic`);
-    return await response.json();
+      const apiRespuesta = await response.json();
+      return apiRespuesta.data.patient
   } catch (error) {
     console.error("Error: obtener Medicos", error);
+    return null
   }
 };
-
-
