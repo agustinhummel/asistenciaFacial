@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 
-
-function CheckboxAsistencia({ id }) {
+function CheckboxAsistencia(props:{id:string}) {
   // Estado para controlar si se marca la asistencia o no
   const [asistencia, setAsistencia] = useState(false);
 
+  const { id } = props;
   // Función para manejar el cambio de estado del checkbox
   const handleCheckboxChange = () => {
     // Verificar si ya se ha marcado la asistencia antes de permitir cambios
