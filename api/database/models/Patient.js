@@ -24,6 +24,10 @@ module.exports = (sequelize, DataTypes) => {
     birthdate: {
       type: DataTypes.DATE,
       allowNull: false
+    },
+    obraSocial: {
+      type: DataTypes.STRING,
+      allowNull: false
     }
   }, {
     sequelize,

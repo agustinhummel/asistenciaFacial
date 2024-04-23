@@ -61,7 +61,7 @@ export default function home() {
                   </th>
                   <td className="px-6 py-4">{formatDate(patient.birthdate)}</td>
                   <td className="px-6 py-4">{formatDate(patient.createdAt)}</td>
-                  <td className="px-6 py-4">{patient.nid}</td>
+                  <td className="px-6 py-4">{patient.obraSocial}</td>
                   <td className="px-6 py-2">
                     <CheckboxAsistencia id={patient.id} />
                   </td>

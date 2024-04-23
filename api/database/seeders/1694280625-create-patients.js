@@ -13,16 +13,18 @@ module.exports = {
         email: faker.internet.email(),
         birthdate: faker.date.birthdate({ min: 18, max: 65, mode: 'age' }),
         nid: faker.number.int({ min: 1000000000, max: 9999999999 }),
+        obraSocial:"",
         createdAt: new Date(),
         updatedAt: new Date(),
       })
     } 
     patients.push({
       id: uuid(),
-      fullname: faker.person.fullName(),
+      fullname: 'Paciente TEST',
       email: 'patienttest@test.com',
       birthdate: faker.date.birthdate({ min: 18, max: 65, mode: 'age' }),
       nid: faker.number.int({ min: 1000000000, max: 9999999999 }),
+      obraSocial:"OSDE",
       createdAt: new Date(),
       updatedAt: new Date(),
     })

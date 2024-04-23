@@ -5,6 +5,7 @@ export interface Paciente {
   email: string;
   nid: string;
   birthdate: string;
+  obraSocial: string;
   createdAt: string;
   updatedAt: string;
 }
