@@ -7,8 +7,9 @@ const createTurno = async (req, res) => {
     try {
   
       const {fecha, medicId, patientId} = req.body
+      
   
-      if (!fecha, !medicId, !patientId) {
+      if (!fecha || !medicId || !patientId) {
         throw new Error('All fields are required.')
       }
 
@@ -23,7 +24,7 @@ const createTurno = async (req, res) => {
 
       if (patientExist && medicExist) {
         await Turno.create({
-          fecha: new Date (fecha),
+          fecha,
           medicId,
           patientId
         });

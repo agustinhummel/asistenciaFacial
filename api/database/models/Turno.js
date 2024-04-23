@@ -15,19 +15,20 @@ module.exports = (sequelize, DataTypes) => {
       references: {
         model: 'Patients', // This should match the actual table name for the Medic model
         key: 'id',
-      },
-      medicId: {
+      }
+    },
+    medicId: {
         type: DataTypes.UUID,
         allowNull: false,
         references: {
           model: 'Medics', // This should match the actual table name for the Medic model
           key: 'id',
-        },
+        }},
     fecha: {
       type: DataTypes.DATE,
       allowNull: false,
     }
-  }}},{
+  },{
       sequelize,
       modelName: 'Turno',
     }),
