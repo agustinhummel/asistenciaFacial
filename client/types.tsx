@@ -24,6 +24,7 @@ export interface Medico {
 export interface Turno {
   id: string;
   fecha: string;
+  patient: string;
   patientId: string;
   medicId: string;
   createdAt: string;

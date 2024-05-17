@@ -18,10 +18,16 @@ export default function home() {
     ObtenerTurnos();
   }, []);
 
-  function formatDate(dateString: any) {
+  function formatDate(dateString: any): string {
     const date = new Date(dateString);
     const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "long", day: "numeric" };
     return date.toLocaleDateString("es-ES", options); // Puedes ajustar el idioma según sea necesario
+  }
+  function extractTime(dateString: any): string {
+    const date = new Date(dateString);
+    const hours = date.getHours().toString().padStart(2, "0"); // Asegura que siempre tenga 2 dígitos
+    const minutes = date.getMinutes().toString().padStart(2, "0"); // Asegura que siempre tenga 2 dígitos
+    return `${hours}:${minutes}hs`;
   }
 
   return (
@@ -51,19 +57,19 @@ export default function home() {
               </tr>
             </thead>
             <tbody>
-              {data.map((patient) => (
+              {fecha?.map((p) => (
                 <tr
                   className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
-                  key={patient.id}
+                  key={p.id}
                 >
                   <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {patient.fullname}
+                    {p.patient.fullname}
                   </th>
-                  <td className="px-6 py-4">{formatDate(patient.birthdate)}</td>
-                  <td className="px-6 py-4">{formatDate(patient.createdAt)}</td>
-                  <td className="px-6 py-4">{patient.obraSocial}</td>
+                  <td className="px-6 py-4">{formatDate(p.fecha)}</td>
+                  <td className="px-6 py-4">{extractTime(p.fecha)}</td>
+                  <td className="px-6 py-4">{p.patient.obraSocial}</td>
                   <td className="px-6 py-2">
-                    <CheckboxAsistencia id={patient.id} />
+                    <CheckboxAsistencia id={p.id} />
                   </td>
                 </tr>
               ))}

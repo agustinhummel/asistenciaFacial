@@ -30,7 +30,7 @@ export const ObtenerTurnos = async (fecha?: string) => {
   try {
     const response = fecha ? await fetch(`${urlBackend}/turno?fecha=${fecha}`) : await fetch(`${urlBackend}/turno`);
     const apiRespuesta = await response.json();
-    return apiRespuesta.data.patient;
+    return apiRespuesta.data.turno;
   } catch (error) {
     console.error("Error: obtener Turnos", error);
     return null;

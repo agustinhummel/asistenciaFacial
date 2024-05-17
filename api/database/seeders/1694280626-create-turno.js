@@ -22,11 +22,15 @@ module.exports = {
         updatedAt: new Date(),
       })
     } 
-
+    
     turnos.push({
       id: uuid(),
       medicId: medic[1].id,
-      patientId: patient[1].id,
+      patientId: (await Patient.findOne({
+        where: {
+          email: "patienttest@test.com"
+        }
+      })).id,
       fecha: '10-12-2024',
       createdAt: new Date(),
       updatedAt: new Date(),
