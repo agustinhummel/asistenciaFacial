@@ -1,6 +1,6 @@
 import { setTurnos, setSelectedTurno, setLoading, setError } from './TurnoSlice';
 
-export const fetchAllTurnos = () => async (dispatch) => {
+export const getAllTurnos = () => async (dispatch) => {
   dispatch(setLoading(true));
   const apiUrl = 'http://localhost:5000/turno';
   try {
@@ -17,7 +17,7 @@ export const fetchAllTurnos = () => async (dispatch) => {
   }
 };
 
-export const fetchTurno = (turnoId) => async (dispatch) => {
+export const getTurno = (turnoId) => async (dispatch) => {
   dispatch(setLoading(true));
   const apiUrl = `http://localhost:5000/turno/${turnoId}`;
   try {
@@ -49,8 +49,7 @@ export const editTurno = (turnoId, updatedTurnoData) => async (dispatch) => {
       throw new Error('No se pudo editar el turno');
     }
     const data = await response.json();
-    console.log('Turno editado exitosamente:', data);
-    dispatch(fetchAllTurnos());
+    dispatch(getAllTurnos());
   } catch (error) {
     dispatch(setError(error.message));
   } finally {
@@ -69,7 +68,7 @@ export const deleteTurno = (turnoId) => async (dispatch) => {
       throw new Error('No se pudo eliminar el turno');
     }
     const data = await response.json();
-    dispatch(fetchAllTurnos());
+    dispatch(getAllTurnos());
   } catch (error) {
     dispatch(setError(error.message));
   } finally {

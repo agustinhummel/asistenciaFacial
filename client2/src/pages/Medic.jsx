@@ -4,9 +4,9 @@ import { SettingOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 
 import PatientTableMedic from '../components/MedicTablaPaciente';
-import { fetchAllDoctors, deleteDoctor } from '../redux/state/MedicActions';
+
 import { deletePatient, getAllPatients } from '../redux/state/PatientActions';
-import { deleteTurno, fetchAllTurnos } from '../redux/state/TurnoActions';
+import { deleteTurno, getAllTurnos } from '../redux/state/TurnoActions';
 import TurnoTable from '../components/AdminTablaTurno';
 
 export default function AdminHome() {
@@ -22,7 +22,7 @@ export default function AdminHome() {
 
   useEffect(() => {
 
-    dispatch(fetchAllTurnos());
+    dispatch(getAllTurnos());
 
   }, [dispatch]);
 

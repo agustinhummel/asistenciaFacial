@@ -90,7 +90,7 @@ const MedicTable = ({ data, onDelete }) => {
       key: 'action',
       render: (text, record) => (
         <>
-          <Link to={`/edit-doctor/${record.id}`}>
+          <Link to={`/admin/edit-medic/${record.id}`}>
             <Button type="link" icon={<EditOutlined />} style={{ color: '#1890ff' }}>Editar</Button>
           </Link>
           <Button type="link" danger onClick={() => showDeleteConfirm(record.email)}>Eliminar</Button>
