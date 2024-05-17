@@ -30,10 +30,16 @@ module.exports = (sequelize, DataTypes) => {
     fecha: {
       type: DataTypes.DATE,
       allowNull: false,
+    },
+    deletedAt: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: null 
     }
   },{
       sequelize,
       modelName: 'Turno',
+      paranoid: true
     }),
   Turno.addHook('beforeSave', async (turno) => {
     return turno.id = uuid();
