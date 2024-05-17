@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllPatients } from '../redux/state/PatientActions';
-import { fetchAllTurnos } from '../redux/state/TurnoActions';
+import { getAllTurnos } from '../redux/state/TurnoActions';
 
 export default function MedicHome() {
   const dispatch = useDispatch();
@@ -9,7 +9,7 @@ export default function MedicHome() {
 
   useEffect(() => {
     dispatch(getAllPatients());
-    dispatch(fetchAllTurnos());
+    dispatch(getAllTurnos());
   }, [dispatch]);
 
   return (

@@ -17,7 +17,7 @@ export const getAllPatients = () => async (dispatch) => {
   }
 };
 
-export const fetchPatient = (patientId) => async (dispatch) => {
+export const getPatient = (patientId) => async (dispatch) => {
   dispatch(setLoading(true));
   const apiUrl = `http://localhost:5000/patient/${patientId}`;
   try {
@@ -49,8 +49,7 @@ export const editPatient = (patientId, updatedPatientData) => async (dispatch) =
       throw new Error('No se pudo editar al paciente');
     }
     const data = await response.json();
-    console.log('Paciente editado exitosamente:', data);
-    dispatch(fetchAllPatients()); 
+    dispatch(getAllPatients()); 
   } catch (error) {
     dispatch(setError(error.message));
   } finally {
@@ -69,7 +68,7 @@ export const deletePatient = (patientId) => async (dispatch) => {
       throw new Error('No se pudo eliminar al paciente');
     }
     const data = await response.json();
-    dispatch(fetchAllPatients()); 
+    dispatch(getAllPatients()); 
   } catch (error) {
     dispatch(setError(error.message));
   } finally {

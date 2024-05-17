@@ -4,28 +4,28 @@ import { SettingOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import PatientTable from '../components/AdminTablaPaciente';
 import MedicTable from '../components/AdminTablaMedico';
-import { fetchAllDoctors, deleteDoctor } from '../redux/state/MedicActions';
+import { getAllMedics, deleteMedic } from '../redux/state/MedicActions';
 import { deletePatient, getAllPatients } from '../redux/state/PatientActions';
-import { deleteTurno, fetchAllTurnos } from '../redux/state/TurnoActions';
+import { deleteTurno, getAllTurnos } from '../redux/state/TurnoActions';
 import TurnoTable from '../components/AdminTablaTurno';
 
 export default function AdminHome() {
   const dispatch = useDispatch();
-  const [selectedView, setSelectedView] = useState('doctors'); // Estado para la vista seleccionada
+  const [selectedView, setSelectedView] = useState('medics');
 
-  const doctors = useSelector((state) => state.doctors.allDoctors);
+  const medics = useSelector((state) => state.medics.allMedics);
   const patients = useSelector((state) => state.patients.allPatients);
   const turnos = useSelector((state) => state.turnos.allTurnos);
 
   const onClick = (e) => {
     switch (e.key) {
       case '1':
-        dispatch(fetchAllDoctors());
-        setSelectedView('doctors');
+        dispatch(getAllMedics());
+        setSelectedView('medics');
         break;
       case '2':
         <>Vista para crear doctor</>
-        setSelectedView('createDoctor');
+        setSelectedView('createMedics');
         break;
       case '3':
         dispatch(getAllPatients());
@@ -36,7 +36,7 @@ export default function AdminHome() {
         setSelectedView('createPatient');
         break;
       case '5':
-        dispatch(fetchAllTurnos());
+        dispatch(getAllTurnos());
         setSelectedView('turnos');
         break;
       case '6':
@@ -103,9 +103,9 @@ export default function AdminHome() {
   ];
 
   useEffect(() => {
-    dispatch(fetchAllDoctors());
+    dispatch(getAllMedics());
     dispatch(getAllPatients());
-    dispatch(fetchAllTurnos());
+    dispatch(getAllTurnos());
   }, [dispatch]);
 
   return (
@@ -117,10 +117,10 @@ export default function AdminHome() {
         items={menuItems}
       />
       <div style={{ marginLeft: 20, flex: 1 }}>
-        {selectedView === 'doctors' && (
+        {selectedView === 'medics' && (
           <>
             <h2>Lista de Profesionales</h2>
-            <MedicTable data={doctors} onDelete={(email) => dispatch(deleteDoctor(email))} />
+            <MedicTable data={medics} onDelete={(email) => dispatch(deleteMedic(email))} />
           </>
         )}
         {selectedView === 'patients' && (
@@ -136,7 +136,7 @@ export default function AdminHome() {
         {selectedView === 'createPatient' && (
           <h2>Formulario de Creación de Paciente</h2>
         )}
-        {selectedView === 'Turnos' && (
+        {selectedView === 'turnos' && (
           <>
             <h2>Lista de Turnos</h2>
             

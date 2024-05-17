@@ -1,19 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const doctorsSlice = createSlice({
-  name: "doctors",
+const medicsSlice = createSlice({
+  name: "medics",
   initialState: {
-    allDoctors: [],
-    selectedDoctor: null,
+    allMedics: [],
+    selectedMedic: null,
     loading: false,
     error: null,
   },
   reducers: {
-    setDoctors: (state, action) => {
-      state.allDoctors = action.payload;
+    setMedics: (state, action) => {
+      state.allMedics = action.payload;
     },
-    setSelectedDoctor: (state, action) => {
-      state.selectedDoctor = action.payload;
+    setSelectedMedic: (state, action) => {
+      state.selectedMedic = action.payload;
     },
     setLoading: (state, action) => {
       state.loading = action.payload;
@@ -24,5 +24,5 @@ const doctorsSlice = createSlice({
   },
 });
 
-export const { setDoctors, setSelectedDoctor, setLoading, setError } = doctorsSlice.actions;
-export const doctorsReducer = doctorsSlice.reducer;
+export const { setMedics, setSelectedMedic, setLoading, setError } = medicsSlice.actions;
+export const medicsReducer = medicsSlice.reducer;

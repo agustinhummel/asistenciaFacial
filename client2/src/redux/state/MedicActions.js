@@ -1,15 +1,15 @@
-import { setDoctors, setSelectedDoctor, setLoading, setError } from './MedicSlice';
+import { setMedics, setSelectedMedic, setLoading, setError } from './MedicSlice';
 
-export const fetchAllDoctors = () => async (dispatch) => {
+export const getAllMedics = () => async (dispatch) => {
   dispatch(setLoading(true));
   const apiUrl = 'http://localhost:5000/medic';
   try {
     const response = await fetch(apiUrl);
     if (!response.ok) {
-      throw new Error('No se pudieron obtener los doctores');
+      throw new Error('No se pudieron obtener los medicos');
     }
     const data = await response.json();
-    dispatch(setDoctors(data.data.medic));
+    dispatch(setMedics(data.data.medic));
   } catch (error) {
     dispatch(setError(error.message));
   } finally {
@@ -17,16 +17,16 @@ export const fetchAllDoctors = () => async (dispatch) => {
   }
 };
 
-export const fetchDoctor = (doctorId) => async (dispatch) => {
+export const getMedic = (medicId) => async (dispatch) => {
   dispatch(setLoading(true));
-  const apiUrl = `http://localhost:5000/medic/${doctorId}`;
+  const apiUrl = `http://localhost:5000/medic/${medicId}`;
   try {
     const response = await fetch(apiUrl);
     if (!response.ok) {
-      throw new Error(`No se pudo obtener el doctor con ID ${doctorId}`);
+      throw new Error(`No se pudo obtener el medico con ID ${medicId}`);
     }
     const data = await response.json();
-    dispatch(setSelectedDoctor(data));
+    dispatch(setSelectedMedic(data.data.medic));
   } catch (error) {
     dispatch(setError(error.message));
   } finally {
@@ -34,13 +34,13 @@ export const fetchDoctor = (doctorId) => async (dispatch) => {
   }
 };
 
-export const editDoctor = (doctorId, updatedDoctorData) => async (dispatch) => {
+export const editMedic = (medicId, updatedMedicData) => async (dispatch) => {
   dispatch(setLoading(true));
-  const apiUrl = `http://localhost:5000/medic${doctorId}`;
+  const apiUrl = `http://localhost:5000/medic${medicId}`;
   try {
     const response = await fetch(apiUrl, {
       method: 'PUT',
-      body: JSON.stringify(updatedDoctorData),
+      body: JSON.stringify(updatedMedicData),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -49,8 +49,7 @@ export const editDoctor = (doctorId, updatedDoctorData) => async (dispatch) => {
       throw new Error('No se pudo editar al médico');
     }
     const data = await response.json();
-    console.log('Médico editado exitosamente:', data);
-    dispatch(fetchAllDoctors()); 
+    dispatch(getAllMedics()); 
   } catch (error) {
     dispatch(setError(error.message));
   } finally {
@@ -58,9 +57,9 @@ export const editDoctor = (doctorId, updatedDoctorData) => async (dispatch) => {
   }
 };
 
-export const deleteDoctor = (doctorId) => async (dispatch) => {
+export const deleteMedic = (medicId) => async (dispatch) => {
   dispatch(setLoading(true));
-  const apiUrl = `http://localhost:5000/medic/?email=${doctorId}`;
+  const apiUrl = `http://localhost:5000/medic/?email=${medicId}`;
   try {
     const response = await fetch(apiUrl, {
       method: 'DELETE',
@@ -69,7 +68,7 @@ export const deleteDoctor = (doctorId) => async (dispatch) => {
       throw new Error('No se pudo eliminar al médico');
     }
     const data = await response.json();
-    dispatch(fetchAllDoctors()); 
+    dispatch(getAllMedics()); 
   } catch (error) {
     dispatch(setError(error.message));
   } finally {
