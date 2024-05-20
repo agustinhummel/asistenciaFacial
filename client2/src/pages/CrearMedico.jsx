@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 const serverBackURL = import.meta.env.VITE_SERVER_BACK;
 
-const CreatePaciente = () => {
+const CreateMedico = () => {
   const navigate = useNavigate()
   return (
     <section>
@@ -17,7 +17,7 @@ const CreatePaciente = () => {
         email:"",
         nid:"",
         birthdate:"",
-        obraSocial:""
+        password:""
       }}
       validate={(valores) => {
         let errores = {};
@@ -34,8 +34,8 @@ const CreatePaciente = () => {
         if (!valores.birthdate) {
           errores.birthdate = "Por favor, ingrese Fecha de Nacimiento del Paciente";
         }
-        if (!valores.obraSocial) {
-            errores.obraSocial = "Por favor, ingrese la Obra Social";
+        if (!valores.password) {
+            errores.password = "Por favor, ingrese la Obra Social";
           }
 
        
@@ -45,13 +45,13 @@ const CreatePaciente = () => {
       }}
       onSubmit={ async (valores, { resetForm }) => {
 
-          const response = await axios.post(`${serverBackURL}/patient`, 
+          const response = await axios.post(`${serverBackURL}/medic`, 
          {
             fullname:valores.fullname,
             email:valores.email,
             nid:valores.nid,
             birthdate:valores.birthdate,
-            obraSocial:valores.obraSocial
+            password:valores.password
          })
          
          if (response.data.error) {
@@ -78,7 +78,7 @@ const CreatePaciente = () => {
         <div className="w-full max-w-xl mx-auto sm:w-96">
         <div>
               <h2 className="mt-24 text-3xl font-bold text-option1-color flex justify-center">
-                Dar de alta un Paciente
+                Dar de alta un Profesional
               </h2>
             </div>
 
@@ -139,7 +139,7 @@ const CreatePaciente = () => {
                     className="block text-sm font-medium text-neutral-600"
                   >
                     {" "}
-                    DNI del Paciente{" "}
+                    DNI{" "}
                   </label>
                   <div className="mt-1">
                     <input
@@ -187,22 +187,22 @@ const CreatePaciente = () => {
                     className="block text-sm font-medium text-neutral-600"
                   >
                     {" "}
-                    Obra Social{" "}
+                    Contraseña{" "}
                   </label>
                   <div className="mt-1">
                     <input
-                      id="obraSocial"
-                      name="obraSocial"
+                      id="password"
+                      name="password"
                       type="text"
-                      value={values.obraSocial}
+                      value={values.password}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      placeholder="Obra Social"
+                      placeholder="Contraseña"
                       className="block w-full px-5 py-3 text-base placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg text-dark-color bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
                     />
                   </div>
-                   {touched.obraSocial && errors.obraSocial && (
-              <div className="error text-red-500">{errors.obraSocial}</div>
+                   {touched.password && errors.password && (
+              <div className="error text-red-500">{errors.password}</div>
             )}
 
                 </div>
@@ -226,4 +226,4 @@ const CreatePaciente = () => {
   )
 }
 
-export default CreatePaciente
+export default CreateMedico;

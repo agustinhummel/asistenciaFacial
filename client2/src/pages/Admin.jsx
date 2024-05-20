@@ -4,6 +4,8 @@ import { SettingOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import PatientTable from '../components/AdminTablaPaciente';
 import MedicTable from '../components/AdminTablaMedico';
+import CreatePaciente from './CrearPaciente';
+import CreateMedico from './CrearMedico';
 import { getAllMedics, deleteMedic } from '../redux/state/MedicActions';
 import { deletePatient, getAllPatients } from '../redux/state/PatientActions';
 import { deleteTurno, getAllTurnos } from '../redux/state/TurnoActions';
@@ -129,12 +131,14 @@ export default function AdminHome() {
             <PatientTable data={patients} onDelete={(email) => dispatch(deletePatient(email))} />
           </>
         )}
-        {selectedView === 'createDoctor' && (
-          <h2>Formulario de Creación de Profesional</h2>
+        {selectedView === 'createMedics' && (
+          <><CreateMedico /></>
+          
           
         )}
         {selectedView === 'createPatient' && (
-          <h2>Formulario de Creación de Paciente</h2>
+          <><CreatePaciente /></>
+          
         )}
         {selectedView === 'turnos' && (
           <>

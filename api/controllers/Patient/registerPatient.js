@@ -5,13 +5,11 @@ const bcrypt = require('bcrypt')
 const createPatient = async (req, res) => {
     try {
   
-      const { fullname, password, email, birthdate, nid } = req.body
+      const { fullname, obraSocial, email, birthdate, nid } = req.body
   
-      if (!fullname || !password || !email || !birthdate || !nid ) {
+      if (!fullname || !obraSocial || !email || !birthdate || !nid ) {
         throw new Error('All fields are required.')
       }
-  
-      const hashedPwd = await bcrypt.hash(password, 10)
   
       const isDuplicated = await Patient.findOne({
         where: {
@@ -25,10 +23,10 @@ const createPatient = async (req, res) => {
   
       await Patient.create({
         fullname,
-        password:hashedPwd,
         email,
         nid,
-        birthdate
+        birthdate,
+        obraSocial
       });
 
       return res.status(201).send({message:'Patiente Registered'})
