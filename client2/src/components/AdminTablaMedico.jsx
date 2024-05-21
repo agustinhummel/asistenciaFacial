@@ -68,22 +68,22 @@ const MedicTable = ({ data, onDelete }) => {
 
   const columns = [
     {
-      title: 'Fullname',
+      title: 'Nombre',
       dataIndex: 'fullname',
       key: 'fullname',
-      ...getColumnSearchProps('fullname'),
+      ...getColumnSearchProps('por nombre'),
     },
     {
       title: 'Email',
       dataIndex: 'email',
       key: 'email',
-      ...getColumnSearchProps('email'),
+      ...getColumnSearchProps('por email'),
     },
     {
-      title: 'NID',
+      title: 'DNI',
       dataIndex: 'nid',
       key: 'nid',
-      ...getColumnSearchProps('nid'),
+      ...getColumnSearchProps('por DNI'),
     },
     {
       title: 'Action',
