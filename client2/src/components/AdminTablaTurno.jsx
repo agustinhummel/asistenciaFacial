@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Table, Input, Button, Space, Modal } from 'antd';
 import { SearchOutlined, EditOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 const TurnoTable = ({ data, onDelete }) => {
   const [searchText, setSearchText] = useState('');
@@ -100,6 +101,7 @@ const TurnoTable = ({ data, onDelete }) => {
       title: 'Fecha',
       dataIndex: 'fecha',
       key: 'fecha',
+      render: (fecha) => moment(fecha).format('YYYY-MM-DD HH:mm:ss'),
       ...getColumnSearchProps('por fecha','fecha'),
     },
     {
