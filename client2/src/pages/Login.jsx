@@ -13,7 +13,6 @@ export default function Home() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    
     if (user && user.isAdmin) {
       navigate('/admin');
     } else if (user) {
@@ -32,7 +31,6 @@ export default function Home() {
         <div className="w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-24">
           <div className="mx-auto max-w-lg text-center ">
             <h1 className="text-2xl font-bold sm:text-3xl">Bienvenidos !!!</h1>
-
             <p className="mt-4 ">
               Plataforma de control de asistencia de pacientes del Instituto
               Delpiano

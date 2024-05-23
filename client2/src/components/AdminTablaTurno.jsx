@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Table, Input, Button, Space, Modal } from 'antd';
 import { SearchOutlined, EditOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom'; // Importa Link si estás usando React Router
+import { Link } from 'react-router-dom';
 
 const TurnoTable = ({ data, onDelete }) => {
   const [searchText, setSearchText] = useState('');
