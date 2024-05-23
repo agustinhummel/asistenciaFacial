@@ -40,6 +40,10 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: true,
         defaultValue: null
+      },
+      isAdmin: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
       }
     });
   },

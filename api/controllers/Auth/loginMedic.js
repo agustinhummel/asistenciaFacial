@@ -28,9 +28,11 @@ const loginMedic = async (req, res) => {
          throw new Error('Invalid password')
       }
 
-      const token = jwt.sign({medic},process.env.JWT_SECRET,{expiresIn:'5h'})
+      medic.password=null
 
-      return res.status(200).json({ message: 'Medic logged', data:{token}})
+      const token = jwt.sign({medic},process.env.JWT_SECRET)
+
+      return res.status(200).json({ message: 'Medic logged', data:{token,user:medic}})
   
     } catch (error) {
       return res.status(400).json({ error: 'Login medic', message: error.message })

@@ -1,20 +1,29 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate   } from "react-router-dom"; 
 import { Button } from 'antd';
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../redux/state/AuthActions";
 
 export default function Home() {
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
-  const clickLogin = () => {
+  useEffect(() => {
     
-    if (email === "admin@admin.com") {
-        navigate("/admin/"); 
-        console.log(email);
-    } else {
-        navigate("/medic/");
+    if (user && user.isAdmin) {
+      navigate('/admin');
+    } else if (user) {
+      navigate('/medic');
     }
+  }, [user, navigate]);
+
+
+  const clickLogin = async() => {
+      dispatch(loginUser(email,password))
   };
 
   return (
@@ -53,9 +62,9 @@ export default function Home() {
                     stroke="currentColor"
                   >
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
                     />
                   </svg>
@@ -64,10 +73,11 @@ export default function Home() {
             </div>
 
             <div>
-              <label className="sr-only">Password</label>
+              <label className="sr-only">Contraseña</label>
 
               <div className="relative">
                 <input
+                  onChange={(e) => setPassword(e.target.value)}
                   type="password"
                   className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                   placeholder="Ingresa la contraseña"
@@ -82,15 +92,15 @@ export default function Home() {
                     stroke="currentColor"
                   >
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
                     />
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
                     />
                   </svg>
@@ -98,12 +108,6 @@ export default function Home() {
               </div>
             </div>
             <div className="flex items-center justify-between">
-             {/*  <button
-                onClick={() => clickLogin()}
-                className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
-              >
-                Ingresar
-              </button> */}
               <Button onClick={() => clickLogin()} type="primary">Ingresar</Button>
             </div>
           </div>

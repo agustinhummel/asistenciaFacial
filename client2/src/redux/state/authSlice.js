@@ -1,87 +1,36 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {
-  getLocalStorage,
-  clearLocalStorage,
-  setLocalStorage
-} from "../../utils/LocalStorageFunctions.js";
-import { deleteRequest, patchRequest, postRequest } from "../../services/httpRequest.js";
 
-export const initialAuth = {
-  token: "",
-  user: {
-  }
+const initialState = {
+  user: null,
+  token: localStorage.getItem('token') || null,
+  loading: false,
+  error: null,
 };
 
-export const authSlice = createSlice({
+const authSlice = createSlice({
   name: "auth",
-  initialState: getLocalStorage("auth") ? getLocalStorage("auth") : initialAuth,
-
+  initialState,
   reducers: {
-    setLogin: (state, action) => {
-      state.user = action.payload.user;
-      state.token = action.payload.token;
+    setUser: (state, action) => {
+      state.user = action.payload;
     },
-    setLogout: () => {
-      clearLocalStorage("auth");
-      return initialAuth;
+    setToken: (state, action) => {
+      state.token = action.payload;
     },
-  }
+    setLoading: (state, action) => {
+      state.loading = action.payload;
+    },
+    setError: (state, action) => {
+      state.error = action.payload;
+    },
+    logout: (state) => {
+      state.user = null;
+      state.token = null;
+      state.loading = false;
+      state.error = null;
+    },
+  },
 });
 
-export const { setLogin, setLogout, } =
-  authSlice.actions;
-
-export default authSlice.reducer;
-
-export const loginUser = dataLogin => async dispatch => {
-  try {
-    const auth = await postRequest(dataLogin, "/user/auth");
-    if (auth.tokenJWT !== "") {
-      dispatch(setLogin({ token: auth.tokenJWT, user: auth.userData }));
-      const authInStorage = { token: auth.tokenJWT, user: auth.userData };
-      setLocalStorage("auth", authInStorage);
-      return { login: true, msg: auth.message, user: auth.userData };
-    }
-    return { login: false };
-  } catch (error) {
-    const msgError = error;
-    return { login: false, msg: msgError.toString() };
-  }
-};
-
-
-export const updateProfile = data => async dispatch => {
-  try {
-    const res = await patchRequest(data, "/user/editUser");
-    if (res?.userPatch) {
-      dispatch(setUpdateUser({ user: res.userPatch }));
-      setLocalStorage("auth", {
-        token: JSON.parse(localStorage.auth).token,
-        user: res.userPatch
-      });
-      return { ok: true };
-    }
-    return res;
-  } catch (error) {
-    console.log(error);
-    return false;
-  }
-};
-
-export const deleteProfile = id => async dispatch => {
-  try {
-    const res = await deleteRequest("/user/delete/" + id);
-
-    if (res?.status === 200) {
-      dispatch(setLogout());
-      dispatch(setLogin({}));
-    }
-    return res?.status;
-  } catch (error) {
-    console.log(error);
-    return false;
-  }
-};
-
-
-
+export const { setUser, setToken, setLoading, setError, logout } = authSlice.actions;
+export const authReducer = authSlice.reducer;

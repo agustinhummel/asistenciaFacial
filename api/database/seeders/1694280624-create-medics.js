@@ -22,6 +22,7 @@ module.exports = {
         email: faker.internet.email(),
         birthdate: faker.date.birthdate({ min: 18, max: 65, mode: 'age' }),
         nid: faker.number.int({ min: 1000000000, max: 9999999999 }),
+        isAdmin: false,
         createdAt: new Date(),
         updatedAt: new Date(),
       })
@@ -33,9 +34,21 @@ module.exports = {
       email: 'medictest@test.com',
       birthdate: faker.date.birthdate({ min: 18, max: 65, mode: 'age' }),
       nid: faker.number.int({ min: 1000000000, max: 9999999999 }),
+      isAdmin: false,
       createdAt: new Date(),
       updatedAt: new Date(),
-    })
+    },{
+      id: uuid(),
+      fullname: "Admin",
+      password: await bcrypt.hash('012345689',10),
+      email: 'admin@admin.com',
+      birthdate: faker.date.birthdate({ min: 18, max: 65, mode: 'age' }),
+      nid: 9999999999,
+      isAdmin: true,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }
+    )
     return await queryInterface.bulkInsert("Medics", medics);
   },
   async down(queryInterface, Sequelize) {
