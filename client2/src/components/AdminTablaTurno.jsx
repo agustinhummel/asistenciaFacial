@@ -35,7 +35,8 @@ const TurnoTable = ({ data, onDelete }) => {
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
       <div style={{ padding: 8 }}>
         <Input
-          placeholder={`Search ${dataIndex}`}
+          id="searchInput"
+          placeholder={`Buscar ${dataIndex}`}
           value={selectedKeys[0]}
           onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
           onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
@@ -49,16 +50,32 @@ const TurnoTable = ({ data, onDelete }) => {
             size="small"
             style={{ width: 90 }}
           >
-            Search
+            Buscar
           </Button>
           <Button onClick={() => handleReset(clearFilters)} size="small" style={{ width: 90 }}>
-            Reset
+            Reiniciar
           </Button>
         </Space>
       </div>
     ),
     filterIcon: (filtered) => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
-    onFilter: (value, record) => record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
+    onFilter: (value, record) => {
+      let recordValue;
+      if (dataIndex.includes('.')) {
+        const keys = dataIndex.split('.');
+        recordValue = keys.reduce((obj, key) => (obj && obj[key] !== 'undefined') ? obj[key] : null, record);
+      } else {
+        recordValue = record[dataIndex];
+      }
+
+
+      if (recordValue !== undefined && recordValue !== null) {
+        const recordValueString = recordValue.toString().toLowerCase();
+        const filterValueString = value.toLowerCase();
+        return recordValueString.includes(filterValueString);
+      }
+      return false;
+    },
     onFilterDropdownVisibleChange: (visible) => {
       if (visible) {
         setTimeout(() => document.getElementById('searchInput')?.select(), 100);
@@ -68,16 +85,16 @@ const TurnoTable = ({ data, onDelete }) => {
 
   const columns = [
     {
-      title: 'Patient Name',
+      title: 'Nombre del Paciente',
       dataIndex: ['patient', 'fullname'],
       key: 'patientName',
-      ...getColumnSearchProps('patient.fullname'),
+      ...getColumnSearchProps('por nombre'),
     },
     {
-      title: 'Medic Name',
+      title: 'Nombre del Médico',
       dataIndex: ['medic', 'fullname'],
       key: 'medicName',
-      ...getColumnSearchProps('medic.fullname'),
+      ...getColumnSearchProps('por nombre'),
     },
     {
       title: 'Fecha',
@@ -86,7 +103,7 @@ const TurnoTable = ({ data, onDelete }) => {
       ...getColumnSearchProps('fecha'),
     },
     {
-      title: 'Action',
+      title: 'Acción',
       key: 'action',
       render: (text, record) => (
         <>

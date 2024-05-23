@@ -6,6 +6,7 @@ import PatientTable from '../components/AdminTablaPaciente';
 import MedicTable from '../components/AdminTablaMedico';
 import CreatePaciente from './CrearPaciente';
 import CreateMedico from './CrearMedico';
+import CreateTurno from './CrearTurno';
 import { getAllMedics, deleteMedic } from '../redux/state/MedicActions';
 import { deletePatient, getAllPatients } from '../redux/state/PatientActions';
 import { deleteTurno, getAllTurnos } from '../redux/state/TurnoActions';
@@ -147,7 +148,7 @@ export default function AdminHome() {
             <TurnoTable data={turnos} onDelete={(id) => dispatch(deleteTurno(id))} />
           </>        )}
         {selectedView === 'createTurno' && (
-          <h2>Formulario de Creación de Turno</h2>
+          <> <CreateTurno/> </>
         )}
       </div>
     </div>
