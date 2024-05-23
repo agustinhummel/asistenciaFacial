@@ -31,11 +31,11 @@ const PatientTable = ({ data, onDelete }) => {
     setSearchText('');
   };
 
-  const getColumnSearchProps = (dataIndex) => ({
+  const getColumnSearchProps = (placeHolder,dataIndex) => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
       <div style={{ padding: 8 }}>
         <Input
-          placeholder={`Buscar ${dataIndex}`}
+          placeholder={`Buscar ${placeHolder}`}
           value={selectedKeys[0]}
           onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
           onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
@@ -71,19 +71,19 @@ const PatientTable = ({ data, onDelete }) => {
       title: 'Nombre',
       dataIndex: 'fullname',
       key: 'fullname',
-      ...getColumnSearchProps('por nombre'),
+      ...getColumnSearchProps('por nombre','fullname'),
     },
     {
       title: 'Email',
       dataIndex: 'email',
       key: 'email',
-      ...getColumnSearchProps('por email'),
+      ...getColumnSearchProps('por email','email'),
     },
     {
       title: 'DNI',
       dataIndex: 'nid',
       key: 'nid',
-      ...getColumnSearchProps('por DNI'),
+      ...getColumnSearchProps('por DNI','nid'),
     },
     {
       title: 'Acción',

@@ -31,12 +31,12 @@ const TurnoTable = ({ data, onDelete }) => {
     setSearchText('');
   };
 
-  const getColumnSearchProps = (dataIndex) => ({
+  const getColumnSearchProps = (placeHolder,dataIndex) => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
       <div style={{ padding: 8 }}>
         <Input
           id="searchInput"
-          placeholder={`Buscar ${dataIndex}`}
+          placeholder={`Buscar ${placeHolder}`}
           value={selectedKeys[0]}
           onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
           onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
@@ -86,21 +86,21 @@ const TurnoTable = ({ data, onDelete }) => {
   const columns = [
     {
       title: 'Nombre del Paciente',
-      dataIndex: ['patient', 'fullname'],
+      dataIndex: ['patient','fullname'],
       key: 'patientName',
-      ...getColumnSearchProps('por nombre'),
+      ...getColumnSearchProps('por nombre','patient.fullname'),
     },
     {
       title: 'Nombre del Médico',
-      dataIndex: ['medic', 'fullname'],
+      dataIndex: ['medic','fullname'],
       key: 'medicName',
-      ...getColumnSearchProps('por nombre'),
+      ...getColumnSearchProps('por nombre','medic.fullname'),
     },
     {
       title: 'Fecha',
       dataIndex: 'fecha',
       key: 'fecha',
-      ...getColumnSearchProps('fecha'),
+      ...getColumnSearchProps('por fecha','fecha'),
     },
     {
       title: 'Acción',
