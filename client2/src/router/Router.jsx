@@ -4,6 +4,7 @@ import NavBar from "../components/Navbar";
 import MedicHome from "../pages/Medic.jsx";
 import AdminHome from "../pages/Admin.jsx";
 import EditMedicForm from "../pages/EditarMedico.jsx";
+import VerPatient from "../pages/VerPatient.jsx";
 
 const Login = lazy(() => import("../pages/Login.jsx"));
 
@@ -20,8 +21,8 @@ const Router = () => {
             <Route path="/admin/edit-medic/:medicId" element={<EditMedicForm />} /> {/* Nueva ruta para editar médico */}
             
             
-            
             <Route path="/medic" element={<MedicHome />} />
+            <Route path="/medic/turno/bymedicid/:patientId" element={<VerPatient />} />
           </Routes>
         </BrowserRouter>
     </>

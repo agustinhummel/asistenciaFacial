@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   allTurnos: [],
+  myTurnoByPatient: [],
   selectedTurno: null,
   loading: false,
   error: null,
@@ -17,6 +18,9 @@ const turnoSlice = createSlice({
     setSelectedTurno(state, action) {
       state.selectedTurno = action.payload;
     },
+    setMyTurnoByPatient(state, action) {
+      state.myTurnoByPatient = action.payload;
+    },
     setLoading(state, action) {
       state.loading = action.payload;
     },
@@ -26,5 +30,5 @@ const turnoSlice = createSlice({
   },
 });
 
-export const { setTurnos, setSelectedTurno, setLoading, setError } = turnoSlice.actions;
+export const { setTurnos, setSelectedTurno, setMyTurnoByPatient, setLoading, setError } = turnoSlice.actions;
 export const turnosReducer = turnoSlice.reducer;

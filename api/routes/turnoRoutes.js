@@ -5,7 +5,8 @@ const {
   createTurno,
   editTurno,
   deleteTurno,
-  getTurno
+  getTurno,
+  getTurnoByMedicAndPatientId
 } = require("../controllers/Turno/index.js");
 
 
@@ -13,5 +14,6 @@ router.post("/",createTurno);
 router.put("/", editTurno);
 router.delete("", deleteTurno);
 router.get("",getTurno);
+router.get("/bymedicid",getTurnoByMedicAndPatientId);
 
 module.exports = router;

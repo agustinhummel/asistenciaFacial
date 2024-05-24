@@ -1,4 +1,4 @@
-import { setTurnos, setSelectedTurno, setLoading, setError } from './TurnoSlice';
+import { setTurnos, setSelectedTurno, setMyTurnoByPatient, setLoading, setError } from './TurnoSlice';
 
 export const getAllTurnos = () => async (dispatch) => {
   dispatch(setLoading(true));
@@ -28,6 +28,27 @@ export const getTurno = (turnoId) => async (dispatch) => {
     const data = await response.json();
     dispatch(setSelectedTurno(data));
   } catch (error) {
+    dispatch(setError(error.message));
+  } finally {
+    dispatch(setLoading(false));
+  }
+};
+
+export const getMyTurnoByPatient = (medicId, patientId) => async (dispatch) => {
+  dispatch(setLoading(true));
+  
+  const apiUrl = `http://localhost:5000/turno/medicbyid/?medicId=${medicId}&patientId=${patientId}`;
+  try {
+    const response = await fetch(apiUrl);
+    if (!response.ok) {
+      throw new Error(`No se pudo obtener el turno con IDs`);
+    }
+    
+    const data = await response.json();
+    console.log(data)
+    dispatch(setMyTurnoByPatient(data));
+  } catch (error) {
+    console.log(error)
     dispatch(setError(error.message));
   } finally {
     dispatch(setLoading(false));

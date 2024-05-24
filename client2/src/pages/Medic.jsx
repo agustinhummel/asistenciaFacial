@@ -17,8 +17,6 @@ export default function AdminHome() {
   const turno = useSelector((state) => state.turnos.allTurnos);
   
 
-  
-  
 
   useEffect(() => {
 

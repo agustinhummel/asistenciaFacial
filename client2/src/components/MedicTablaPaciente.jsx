@@ -60,7 +60,6 @@ const PatientTableMedic = ({ data, onDelete }) => {
     },
   });
 
-  console.log(data)
 
   const columns = [
     {
@@ -68,14 +67,14 @@ const PatientTableMedic = ({ data, onDelete }) => {
       dataIndex: 'patient',
       key: 'patient.fullname',
       render: (text, record) => record.patient.fullname,
-      ...getColumnSearchProps('patient.fullname'),
+      ...getColumnSearchProps('por Nombre'),
     },
     {
         title: 'Obra Social',
         dataIndex: 'patient',
         key: 'patient.obraSocial',
         render: (text, record) => record.patient.obraSocial,
-        ...getColumnSearchProps('patient.obraSocial'),
+        ...getColumnSearchProps('por Obra Social'),
     },
     {
         title: 'Fecha',
@@ -88,10 +87,10 @@ const PatientTableMedic = ({ data, onDelete }) => {
       key: 'action',
       render: (text, record) => (
         <>
-          <Link to={`/edit-patient/${record.id}`}>
+          <Link to={`turno/bymedicid/${record.patientId}`}>
             <Button type="link" icon={<EditOutlined />} style={{ color: '#1890ff' }}>Ver Historial</Button>
           </Link>
-
+          
         </>
       ),
     },
