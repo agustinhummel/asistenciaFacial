@@ -27,7 +27,6 @@ export default function AdminHome() {
         setSelectedView('medics');
         break;
       case '2':
-        <>Vista para crear doctor</>
         setSelectedView('createMedics');
         break;
       case '3':
@@ -35,7 +34,6 @@ export default function AdminHome() {
         setSelectedView('patients');
         break;
       case '4':
-        <>Vista para crear paciente</>
         setSelectedView('createPatient');
         break;
       case '5':
@@ -43,7 +41,6 @@ export default function AdminHome() {
         setSelectedView('turnos');
         break;
       case '6':
-        <>Vista para crear turno</>
         setSelectedView('createTurno');
         break;
       default:
@@ -112,43 +109,33 @@ export default function AdminHome() {
   }, [dispatch]);
 
   return (
-    <div className="flex">
-      <Menu
-        onClick={onClick}
-        style={{ width: 256 }}
-        mode="inline"
-        items={menuItems}
-      />
-      <div style={{ marginLeft: 20, flex: 1 }}>
+    <div className="flex flex-col md:flex-row">
+      <div className="w-full md:w-1/4">
+        <Menu
+          onClick={onClick}
+          style={{ width: '100%' }}
+          mode="inline"
+          items={menuItems}
+        />
+      </div>
+      <div className="w-full md:w-3/4 overflow-x-auto">
         {selectedView === 'medics' && (
-          <>
-            <h2>Lista de Profesionales</h2>
-            <MedicTable data={medics} onDelete={(email) => dispatch(deleteMedic(email))} />
-          </>
+          <MedicTable data={medics} onDelete={(email) => dispatch(deleteMedic(email))} />
         )}
         {selectedView === 'patients' && (
-          <>
-            <h2>Lista de Pacientes</h2>
-            <PatientTable data={patients} onDelete={(email) => dispatch(deletePatient(email))} />
-          </>
+          <PatientTable data={patients} onDelete={(email) => dispatch(deletePatient(email))} />
         )}
         {selectedView === 'createMedics' && (
-          <><CreateMedico /></>
-          
-          
+          <CreateMedico />
         )}
         {selectedView === 'createPatient' && (
-          <><CreatePaciente /></>
-          
+          <CreatePaciente />
         )}
         {selectedView === 'turnos' && (
-          <>
-            <h2>Lista de Turnos</h2>
-            
-            <TurnoTable data={turnos} onDelete={(id) => dispatch(deleteTurno(id))} />
-          </>        )}
+          <TurnoTable data={turnos} onDelete={(id) => dispatch(deleteTurno(id))} />
+        )}
         {selectedView === 'createTurno' && (
-          <> <CreateTurno/> </>
+          <CreateTurno />
         )}
       </div>
     </div>

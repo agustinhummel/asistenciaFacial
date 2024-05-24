@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Table, Input, Button, Space, Modal } from 'antd';
 import { SearchOutlined, EditOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom'; // Importa Link si estás usando React Router
+import { Link } from 'react-router-dom';
 
 const MedicTable = ({ data, onDelete }) => {
   const [searchText, setSearchText] = useState('');
@@ -31,11 +31,11 @@ const MedicTable = ({ data, onDelete }) => {
     setSearchText('');
   };
 
-  const getColumnSearchProps = (dataIndex) => ({
+  const getColumnSearchProps = (placeHolder,dataIndex) => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
       <div style={{ padding: 8 }}>
         <Input
-          placeholder={`Search ${dataIndex}`}
+          placeholder={`Buscar ${placeHolder}`}
           value={selectedKeys[0]}
           onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
           onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
@@ -49,10 +49,10 @@ const MedicTable = ({ data, onDelete }) => {
             size="small"
             style={{ width: 90 }}
           >
-            Search
+            Buscar
           </Button>
           <Button onClick={() => handleReset(clearFilters)} size="small" style={{ width: 90 }}>
-            Reset
+            Borrar
           </Button>
         </Space>
       </div>
@@ -71,19 +71,19 @@ const MedicTable = ({ data, onDelete }) => {
       title: 'Nombre',
       dataIndex: 'fullname',
       key: 'fullname',
-      ...getColumnSearchProps('por nombre'),
+      ...getColumnSearchProps('por Nombre','fullname'),
     },
     {
       title: 'Email',
       dataIndex: 'email',
       key: 'email',
-      ...getColumnSearchProps('por email'),
+      ...getColumnSearchProps('por email','email'),
     },
     {
       title: 'DNI',
       dataIndex: 'nid',
       key: 'nid',
-      ...getColumnSearchProps('por DNI'),
+      ...getColumnSearchProps('por DNI','nid'),
     },
     {
       title: 'Action',

@@ -1,20 +1,28 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate   } from "react-router-dom"; 
 import { Button } from 'antd';
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../redux/state/AuthActions";
 
 export default function Home() {
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
-  const clickLogin = () => {
-    
-    if (email === "admin@admin.com") {
-        navigate("/admin/"); 
-        console.log(email);
-    } else {
-        navigate("/medic/");
+  useEffect(() => {
+    if (user && user.isAdmin) {
+      navigate('/admin');
+    } else if (user) {
+      navigate('/medic');
     }
+  }, [user, navigate]);
+
+
+  const clickLogin = async() => {
+      dispatch(loginUser(email,password))
   };
 
   return (
@@ -63,6 +71,7 @@ export default function Home() {
               <label className="sr-only">Password</label>
               <div className="relative">
                 <input
+                  onChange={(e) => setPassword(e.target.value)}
                   type="password"
                   className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                   placeholder="Ingresa la contraseña"
@@ -93,9 +102,7 @@ export default function Home() {
             </div>
   
             <div className="flex items-center justify-between">
-              <Button onClick={() => clickLogin()} type="primary">
-                Ingresar
-              </Button>
+              <Button onClick={() => clickLogin()} type="primary">Ingresar</Button>
             </div>
           </div>
         </div>
