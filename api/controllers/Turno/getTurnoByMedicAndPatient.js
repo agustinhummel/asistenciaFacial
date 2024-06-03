@@ -1,29 +1,35 @@
-const { Turno } = require('../../database/models');
+const {Turno, Patient, Medic} = require('../../database/models')
 
-
+const modelsToInclude = [
+    { model: Patient, as: 'patient' },
+    { model: Medic, as: 'medic' },
+  ]
 const getTurnoByMedicAndPatientId = async (req, res) => {
-
-
     try {
         const { medicId, patientId } = req.query;
-        
-        const getTurnos = await Turno.findAll({
-            where: {
-                medicId,
-                patientId
-            },
 
-        });
+        let whereClause = {}; // Objeto para almacenar las condiciones de la consulta
 
-        if (getTurnos.length === 0) {
-            return res.status(404).send({ message: 'No turnos found' });
+        // Verifica si se proporciona medicId o patientId y ajusta la cláusula WHERE en consecuencia
+        if (medicId && patientId) {
+            whereClause = { medicId, patientId };
+        } else if (medicId) {
+            whereClause = { medicId };
+        } else if (patientId) {
+            whereClause = { patientId };
         }
+
+        const getTurnos = await Turno.findAll({
+            where: whereClause,
+            include: modelsToInclude
+        });
 
         return res.status(200).send({ message: 'Successfully retrieved', turnos: getTurnos });
     } catch (error) {
-        console.error(error); // Log the error for server-side debugging
+        console.error(error); // Registra el error para depuración en el servidor
         return res.status(500).json({ error: 'Internal Server Error', message: error.message });
     }
 };
+
 
 module.exports = { getTurnoByMedicAndPatientId };

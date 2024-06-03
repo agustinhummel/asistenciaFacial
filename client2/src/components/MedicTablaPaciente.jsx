@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
-import { Table, Input, Button, Space, Modal } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Table, Input, Button, Space, Checkbox } from 'antd';
 import { SearchOutlined, EditOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+import CheckboxWithValidation from './CheckboxWithValidation';
 
 const PatientTableMedic = ({ data, onDelete }) => {
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
-
-
+ 
+  
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
@@ -19,6 +20,7 @@ const PatientTableMedic = ({ data, onDelete }) => {
     clearFilters();
     setSearchText('');
   };
+
 
   const getColumnSearchProps = (dataIndex) => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
@@ -86,12 +88,15 @@ const PatientTableMedic = ({ data, onDelete }) => {
       title: 'Acción',
       key: 'action',
       render: (text, record) => (
-        <>
-          <Link to={`turno/bymedicid/${record.patientId}`}>
-            <Button type="link" icon={<EditOutlined />} style={{ color: '#1890ff' }}>Ver Historial</Button>
-          </Link>
-          
-        </>
+<>
+  <div className="flex items-center space-x-4">
+      <CheckboxWithValidation/>
+    <Link to={`turno/bymedicid/${record.patientId}`} className="text-blue-500 hover:text-blue-700">
+      <Button type="link" icon={<EditOutlined />} className="text-blue-500 hover:text-blue-700">Ver Historial</Button>
+    </Link>
+  </div>
+</>
+
       ),
     },
   ];

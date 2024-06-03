@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import PatientTableMedic from '../components/MedicTablaPaciente';
 
 import { deletePatient, getAllPatients } from '../redux/state/PatientActions';
-import { deleteTurno, getAllTurnos } from '../redux/state/TurnoActions';
+import { deleteTurno, getAllTurnos, getMyTurnoByMedic } from '../redux/state/TurnoActions';
 import TurnoTable from '../components/AdminTablaTurno';
 
 export default function AdminHome() {
@@ -14,13 +14,14 @@ export default function AdminHome() {
   const [selectedView, setSelectedView] = useState('turno'); // Estado para la vista seleccionada
 
 
-  const turno = useSelector((state) => state.turnos.allTurnos);
+  const turnos = useSelector((state) => state.turnos.myTurnoByMedic);
+  const medicId = useSelector(state => state.auth.user.id)
   
 
 
   useEffect(() => {
 
-    dispatch(getAllTurnos());
+    dispatch(getMyTurnoByMedic(medicId));
 
   }, [dispatch]);
 
@@ -31,8 +32,8 @@ export default function AdminHome() {
        
         {selectedView === 'turno' && (
           <>
-            <h2>Lista de Pacientes</h2>
-            <PatientTableMedic data={turno} onDelete={(email) => dispatch(deletePatient(email))} />
+            
+            <PatientTableMedic data={turnos} onDelete={(email) => dispatch(deletePatient(email))} />
           </>
         )}
        

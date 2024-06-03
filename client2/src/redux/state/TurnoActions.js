@@ -1,4 +1,4 @@
-import { setTurnos, setSelectedTurno, setMyTurnoByPatient, setLoading, setError } from './TurnoSlice';
+import { setTurnos, setSelectedTurno, setMyTurnoByPatient, setLoading, setError, setMyTurnoByMedic } from './TurnoSlice';
 
 export const getAllTurnos = () => async (dispatch) => {
   dispatch(setLoading(true));
@@ -37,7 +37,7 @@ export const getTurno = (turnoId) => async (dispatch) => {
 export const getMyTurnoByPatient = (medicId, patientId) => async (dispatch) => {
   dispatch(setLoading(true));
   
-  const apiUrl = `http://localhost:5000/turno/medicbyid/?medicId=${medicId}&patientId=${patientId}`;
+  const apiUrl = `http://localhost:5000/turno/bymedicid?medicId=${medicId}&patientId=${patientId}`;
   try {
     const response = await fetch(apiUrl);
     if (!response.ok) {
@@ -45,8 +45,29 @@ export const getMyTurnoByPatient = (medicId, patientId) => async (dispatch) => {
     }
     
     const data = await response.json();
-    console.log(data)
-    dispatch(setMyTurnoByPatient(data));
+    
+    dispatch(setMyTurnoByPatient(data.turnos));
+  } catch (error) {
+    
+    dispatch(setError(error.message));
+  } finally {
+    dispatch(setLoading(false));
+  }
+};
+
+export const getMyTurnoByMedic = (medicId) => async (dispatch) => {
+  dispatch(setLoading(true));
+  
+  const apiUrl = `http://localhost:5000/turno/bymedicid?medicId=${medicId}`;
+  try {
+    const response = await fetch(apiUrl);
+    if (!response.ok) {
+      throw new Error(`No se pudo obtener el turno con IDs`);
+    }
+    
+    const data = await response.json();
+    
+    dispatch(setMyTurnoByMedic(data.turnos));
   } catch (error) {
     console.log(error)
     dispatch(setError(error.message));
@@ -54,6 +75,7 @@ export const getMyTurnoByPatient = (medicId, patientId) => async (dispatch) => {
     dispatch(setLoading(false));
   }
 };
+
 
 export const editTurno = (turnoId, updatedTurnoData) => async (dispatch) => {
   dispatch(setLoading(true));
