@@ -18,6 +18,8 @@ module.exports = {
         medicId: medic[i].id,
         patientId: patient[i].id,
         fecha: faker.date.anytime(),
+        review: faker.lorem.paragraphs(),
+        validateAdmin: false,
         createdAt: new Date(),
         updatedAt: new Date(),
       })
@@ -25,13 +27,19 @@ module.exports = {
     
     turnos.push({
       id: uuid(),
-      medicId: medic[1].id,
+      medicId: (await Medic.findOne({
+        where: {
+          email: "medictest@test.com"
+        }
+      })).id,
       patientId: (await Patient.findOne({
         where: {
           email: "patienttest@test.com"
         }
       })).id,
       fecha: '10-12-2024',
+      validateAdmin: true,
+      review: "todo ok con el paciente",
       createdAt: new Date(),
       updatedAt: new Date(),
     })

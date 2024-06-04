@@ -11,16 +11,25 @@ module.exports = {
       patientId: {
         type: Sequelize.UUID,
         allowNull: false,
-        references: { model: 'Patients', key: 'id'}
+        references: { model: 'Patients', key: 'id' }
       },
       medicId: {
         type: Sequelize.UUID,
         allowNull: false,
-        references: { model: 'Medics', key: 'id'}
+        references: { model: 'Medics', key: 'id' }
       },
       fecha: {
         type: Sequelize.DATE,
         allowNull: false,
+      },
+      review: {
+        type: Sequelize.TEXT,
+        allowNull: true
+      },
+      validateAdmin:{
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
       },
       createdAt: {
         allowNull: false,
