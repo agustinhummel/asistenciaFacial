@@ -26,7 +26,7 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: true
       },
-      validateAdmin:{
+      adminValidated:{
         type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: false

@@ -19,7 +19,7 @@ module.exports = {
         patientId: patient[i].id,
         fecha: faker.date.anytime(),
         review: faker.lorem.paragraphs(),
-        validateAdmin: false,
+        adminValidated: false,
         createdAt: new Date(),
         updatedAt: new Date(),
       })
@@ -38,7 +38,7 @@ module.exports = {
         }
       })).id,
       fecha: '10-12-2024',
-      validateAdmin: true,
+      adminValidated: true,
       review: "todo ok con el paciente",
       createdAt: new Date(),
       updatedAt: new Date(),

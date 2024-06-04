@@ -29,7 +29,7 @@ module.exports = {
     } 
     medics.push({
       id: uuid(),
-      fullname: faker.person.fullName(),
+      fullname: 'Medico TEST',
       password: await bcrypt.hash('012345689',10),
       email: 'medictest@test.com',
       birthdate: faker.date.birthdate({ min: 18, max: 65, mode: 'age' }),
