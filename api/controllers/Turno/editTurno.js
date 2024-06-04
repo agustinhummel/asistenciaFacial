@@ -20,10 +20,6 @@ const editTurno = async (req, res) => {
       }
     );
 
-    if (updateTurno == 0) {
-      throw new Error("Turno not found")
-    }
-
     const turno = await Turno.findOne(
       {
         where: {

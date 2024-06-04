@@ -1,10 +1,14 @@
+import {editTurnoReview} from '../redux/state/TurnoActions'
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useDispatch } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // Componente de Checkbox con validación de texto
-const CheckboxWithValidation = () => {
+const CheckboxWithValidation = ({turnoId}) => {
+    console.log(turnoId)
+    const dispatch = useDispatch()
   const [texto, setTexto] = useState('');
   const [isChecked, setIsChecked] = useState(false);
   const [isTextareaVisible, setIsTextareaVisible] = useState(false);
@@ -27,6 +31,8 @@ const CheckboxWithValidation = () => {
   // Función para enviar la información y marcar el checkbox
   const enviarInformacion = () => {
     // Aquí puedes agregar la lógica para guardar el texto antes de marcar el checkbox
+    
+    dispatch(editTurnoReview(turnoId, texto))
     setIsChecked(true);
     setIsTextareaVisible(false);
     setToastVisible(true);

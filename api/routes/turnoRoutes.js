@@ -11,7 +11,7 @@ const {
 
 
 router.post("/",createTurno);
-router.put("/", editTurno);
+router.put( "", editTurno);
 router.delete("", deleteTurno);
 router.get("",getTurno);
 router.get("/bymedicid",getTurnoByMedicAndPatientId);

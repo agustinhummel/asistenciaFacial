@@ -90,7 +90,7 @@ const PatientTableMedic = ({ data, onDelete }) => {
       render: (text, record) => (
 <>
   <div className="flex items-center space-x-4">
-      <CheckboxWithValidation/>
+      <CheckboxWithValidation turnoId={record.id} />
     <Link to={`turno/bymedicid/${record.patientId}`} className="text-blue-500 hover:text-blue-700">
       <Button type="link" icon={<EditOutlined />} className="text-blue-500 hover:text-blue-700">Ver Historial</Button>
     </Link>
