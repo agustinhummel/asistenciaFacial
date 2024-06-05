@@ -1,47 +1,70 @@
-import {editTurnoReview} from '../redux/state/TurnoActions'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useDispatch } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { editTurnoReview, fetchTurnoReview } from '../redux/state/TurnoActions';
 
-// Componente de Checkbox con validación de texto
-const CheckboxWithValidation = ({turnoId}) => {
-    console.log(turnoId)
-    const dispatch = useDispatch()
+const CheckboxWithValidation = ({ turnoId }) => {
+  const dispatch = useDispatch();
   const [texto, setTexto] = useState('');
   const [isChecked, setIsChecked] = useState(false);
   const [isTextareaVisible, setIsTextareaVisible] = useState(false);
   const [isEnviarEnabled, setIsEnviarEnabled] = useState(false);
   const [toastVisible, setToastVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Función para contar las palabras ingresadas
+  useEffect(() => {
+    dispatch(fetchTurnoReview(turnoId))
+      .then((data) => {
+        if (data && data.review) {
+          setTexto(data.review);
+          setIsChecked(true);
+        } else {
+          setIsChecked(false);
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching turno review:', error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, [dispatch, turnoId]);
+
   const contarPalabras = (texto) => {
     const palabras = texto.trim().split(/\s+/);
     return palabras.length;
   };
 
-  // Función para manejar el cambio en el textarea
   const handleChange = (event) => {
     const nuevoTexto = event.target.value;
     setTexto(nuevoTexto);
-    setIsEnviarEnabled(contarPalabras(nuevoTexto) >= 10);
+    setIsEnviarEnabled(contarPalabras(nuevoTexto) >= 50);
   };
 
-  // Función para enviar la información y marcar el checkbox
   const enviarInformacion = () => {
-    // Aquí puedes agregar la lógica para guardar el texto antes de marcar el checkbox
-    
     dispatch(editTurnoReview(turnoId, texto))
-    setIsChecked(true);
-    setIsTextareaVisible(false);
-    setToastVisible(true);
-    toast.success('Información enviada');
+      .then(() => {
+        setIsChecked(true);
+        setIsTextareaVisible(false);
+        setToastVisible(true);
+        toast.success('Información enviada');
+      })
+      .catch((error) => {
+        toast.error('Error al enviar la información');
+        console.error('Error:', error);
+      });
   };
 
-  // Función para cancelar la acción y cerrar el textarea
   const cancelarAccion = () => {
     setIsTextareaVisible(false);
+  };
+
+  const handleCheckboxClick = () => {
+    if (!isChecked) {
+      setIsTextareaVisible(true);
+    }
   };
 
   const popup = (
@@ -53,21 +76,26 @@ const CheckboxWithValidation = ({turnoId}) => {
           onChange={handleChange}
           className="w-full h-64 border border-gray-300 rounded p-2 mb-4 resize-none"
           placeholder="Escribe al menos 50 palabras..."
+          readOnly={isChecked}
         />
         <div className="flex justify-end">
-          <button
-            onClick={cancelarAccion}
-            className="bg-red-500 text-white px-4 py-2 rounded mr-2"
-          >
-            Cancelar
-          </button>
-          <button
-            onClick={enviarInformacion}
-            disabled={!isEnviarEnabled}
-            className={`bg-blue-500 text-white px-4 py-2 rounded ${!isEnviarEnabled && 'opacity-50 cursor-not-allowed'}`}
-          >
-            Enviar
-          </button>
+          {!isChecked && (
+            <>
+              <button
+                onClick={cancelarAccion}
+                className="bg-red-500 text-white px-4 py-2 rounded mr-2"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={enviarInformacion}
+                disabled={!isEnviarEnabled}
+                className={`bg-blue-500 text-white px-4 py-2 rounded ${!isEnviarEnabled && 'opacity-50 cursor-not-allowed'}`}
+              >
+                Enviar
+              </button>
+            </>
+          )}
         </div>
       </div>
     </div>
@@ -79,7 +107,8 @@ const CheckboxWithValidation = ({turnoId}) => {
         <input
           type="checkbox"
           checked={isChecked}
-          onChange={() => setIsTextareaVisible(true)}
+          onChange={handleCheckboxClick}
+          disabled={isChecked || isLoading}
         />
         <span>Marcar Checkbox</span>
       </div>

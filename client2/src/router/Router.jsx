@@ -1,5 +1,5 @@
 import { lazy } from "react";
-import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import NavBar from "../components/Navbar";
 import MedicHome from "../pages/Medic.jsx";
 import AdminHome from "../pages/Admin.jsx";
@@ -10,22 +10,30 @@ import ProtectedRouteMedic from "../components/ProtectedRouteMedic.jsx";
 
 const Login = lazy(() => import("../pages/Login.jsx"));
 
-const Router = () => {
+function MainLayout() {
+  const location = useLocation();
+  const showNavbar = location.pathname !== '/';
+
   return (
     <>
-        <BrowserRouter>
-        <NavBar/>
-          <Routes>
-            <Route path="/" element={<Login />} />
-
-            <Route path="/admin" element={<ProtectedRouteAdmin element={<AdminHome />}/>} />
-            <Route path="/admin/edit-medic/:medicId" element={<ProtectedRouteAdmin element={<EditMedicForm />}/>} />
-            <Route path="/medic" element={<ProtectedRouteMedic element={<MedicHome />} />}/>
-            <Route path="/medic/turno/bymedicid/:patientId" element={<ProtectedRouteMedic element={<VerPatient />} />}/>
-          </Routes>
-        </BrowserRouter>
+      {showNavbar && <NavBar />}
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/admin" element={<ProtectedRouteAdmin element={<AdminHome />} />} />
+        <Route path="/admin/edit-medic/:medicId" element={<ProtectedRouteAdmin element={<EditMedicForm />} />} />
+        <Route path="/medic" element={<ProtectedRouteMedic element={<MedicHome />} />} />
+        <Route path="/medic/turno/bymedicid/:patientId" element={<ProtectedRouteMedic element={<VerPatient />} />} />
+      </Routes>
     </>
+  );
+}
+
+const AppRouter = () => {
+  return (
+    <BrowserRouter>
+      <MainLayout />
+    </BrowserRouter>
   );
 };
 
-export default Router;
+export default AppRouter;

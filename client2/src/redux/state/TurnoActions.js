@@ -99,9 +99,24 @@ export const editTurno = (turnoId, updatedTurnoData) => async (dispatch) => {
     dispatch(setLoading(false));
   }
 };
+// actions.js
+// actions.js
+export const fetchTurnoReview = (turnoId) => async (dispatch) => {
+  const apiUrl = `http://localhost:5000/turno/${turnoId}`;
+  try {
+    const response = await fetch(apiUrl);
+    if (!response.ok) {
+      throw new Error('Error al obtener el turno');
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
 
-export const editTurnoReview = (turnoId, updatedTurnoData) => async (dispatch) => {
-  dispatch(setLoading(true));
+export const editTurnoReview = (turnoId, review) => async (dispatch) => {
   const apiUrl = `http://localhost:5000/turno`;
   try {
     const response = await fetch(apiUrl, {
@@ -109,22 +124,19 @@ export const editTurnoReview = (turnoId, updatedTurnoData) => async (dispatch) =
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ turnoId, review: updatedTurnoData }),  // Aquí estamos combinando turnoId con los datos actualizados
+      body: JSON.stringify({ turnoId, review }),
     });
     if (!response.ok) {
       throw new Error('No se pudo editar el turno');
     }
-
-    // Puedes manejar la respuesta aquí si es necesario
     const data = await response.json();
-    dispatch(setTurno(data));  // Suponiendo que tienes una acción para establecer el turno actualizado
-
+    return data;
   } catch (error) {
-    dispatch(setError(error.message));
-  } finally {
-    dispatch(setLoading(false));
+    console.error(error);
+    throw error;
   }
 };
+
 
 
 export const deleteTurno = (turnoId) => async (dispatch) => {

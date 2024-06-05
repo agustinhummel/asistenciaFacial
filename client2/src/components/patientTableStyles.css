@@ -1,0 +1,73 @@
+/* Estilos para la tabla responsive */
+/* Contenedor principal de la tabla */
+.ant-table-wrapper {
+    overflow-x: auto;
+}
+
+/* Estilos para pantallas pequeñas (teléfonos celulares) */
+@media screen and (max-width: 767px) {
+
+    /* Ajustar el tamaño del texto y el espaciado */
+    .ant-table table {
+        font-size: 12px;
+    }
+
+    /* Implementar un enfoque de tabla horizontalmente desplazable */
+    .ant-table-thead,
+    .ant-table-tbody {
+        display: block;
+    }
+
+    .ant-table-thead>tr,
+    .ant-table-tbody>tr {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #f0f0f0;
+        /* Agregar línea de separación entre filas */
+        padding-bottom: 5px;
+        /* Espaciado inferior entre filas */
+        margin-bottom: 5px;
+        /* Espaciado inferior entre filas */
+    }
+
+    .ant-table-thead th,
+    .ant-table-tbody td {
+        flex: 1;
+        /* Cada columna ocupa todo el ancho disponible */
+        margin: 0 5px;
+        /* Espaciado horizontal entre celdas */
+        text-align: left;
+        /* Alinear el texto a la izquierda */
+        white-space: normal;
+        /* Permitir varias líneas de texto */
+        padding: 8px;
+        /* Ajustar el espaciado interno de las celdas */
+    }
+
+    /* Ocultar el título de la columna "Acción" */
+    .ant-table-thead th:last-child {
+        visibility: hidden;
+    }
+
+    /* Ajustar el tamaño de la tabla */
+    .ant-table-pagination {
+        display: none;
+    }
+}
+
+/* Estilos para pantallas más grandes (no teléfonos celulares) */
+@media screen and (min-width: 768px) {
+
+    /* Centrar la tabla */
+    .ant-table-wrapper {
+        margin: 20px auto;
+        /* Aplicar márgenes superior e inferior automáticos y centrar horizontalmente */
+        max-width: 90%;
+        /* Limitar el ancho máximo de la tabla */
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        /* Agregar sombra a la tabla */
+        border-radius: 15px;
+    }
+}

@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Table, Input, Button, Space, Checkbox } from 'antd';
 import { SearchOutlined, EditOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import CheckboxWithValidation from './CheckboxWithValidation';
+import './patientTableStyles.css';
+
 
 const PatientTableMedic = ({ data, onDelete }) => {
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
- 
-  
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
@@ -16,21 +16,20 @@ const PatientTableMedic = ({ data, onDelete }) => {
     setSearchedColumn(dataIndex);
   };
 
-  const handleReset = (clearFilters) => {
+  const handleReset = clearFilters => {
     clearFilters();
     setSearchText('');
   };
 
-
-  const getColumnSearchProps = (dataIndex) => ({
+  const getColumnSearchProps = dataIndex => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
-      <div style={{ padding: 8 }}>
+      <div className="p-2">
         <Input
           placeholder={`Buscar ${dataIndex}`}
           value={selectedKeys[0]}
-          onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+          onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
           onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
-          style={{ marginBottom: 8, display: 'block' }}
+          className="mb-2 block w-full"
         />
         <Space>
           <Button
@@ -48,7 +47,7 @@ const PatientTableMedic = ({ data, onDelete }) => {
         </Space>
       </div>
     ),
-    filterIcon: (filtered) => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
+    filterIcon: filtered => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
     onFilter: (value, record) => {
       const dataIndexPath = dataIndex.split('.');
       let recordValue = record;
@@ -62,46 +61,55 @@ const PatientTableMedic = ({ data, onDelete }) => {
     },
   });
 
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear().toString();
+    return `${day}/${month}/${year}`;
+}
 
-  const columns = [
+const columns = [
     {
-      title: 'Nombre Completo',
-      dataIndex: 'patient',
-      key: 'patient.fullname',
-      render: (text, record) => record.patient.fullname,
-      ...getColumnSearchProps('por Nombre'),
+        title: 'Nombre Completo',
+        dataIndex: ['patient', 'fullname'],
+        key: 'patient.fullname',
+        render: text => text,
+        ...getColumnSearchProps('por Nombre'),
     },
     {
         title: 'Obra Social',
-        dataIndex: 'patient',
+        dataIndex: ['patient', 'obraSocial'],
         key: 'patient.obraSocial',
-        render: (text, record) => record.patient.obraSocial,
+        render: text => text,
         ...getColumnSearchProps('por Obra Social'),
     },
     {
         title: 'Fecha',
         dataIndex: 'fecha',
         key: 'fecha',
+        render: text => formatDate(text), // Formatear la fecha
         ...getColumnSearchProps('Fecha'),
-      },
-    {
-      title: 'Acción',
-      key: 'action',
-      render: (text, record) => (
-<>
-  <div className="flex items-center space-x-4">
-      <CheckboxWithValidation turnoId={record.id} />
-    <Link to={`turno/bymedicid/${record.patientId}`} className="text-blue-500 hover:text-blue-700">
-      <Button type="link" icon={<EditOutlined />} className="text-blue-500 hover:text-blue-700">Ver Historial</Button>
-    </Link>
-  </div>
-</>
-
-      ),
     },
-  ];
+    {
+        title: 'Acción',
+        key: 'action',
+        render: (text, record) => (
+            <>
+                <div className="flex items-center space-x-4">
+                    <CheckboxWithValidation turnoId={record.id} />
+                    <Link to={`turno/bymedicid/${record.patientId}`} className="text-blue-500 hover:text-blue-700">
+                        <Button type="link" icon={<EditOutlined />} className="text-blue-500 hover:text-blue-700">
+                            Ver Historial
+                        </Button>
+                    </Link>
+                </div>
+            </>
+        ),
+    },
+];
 
-  return <Table columns={columns} dataSource={data} />;
+return <Table columns={columns} dataSource={data} />;
 };
 
 export default PatientTableMedic;
