@@ -15,8 +15,9 @@ import TurnoTable from '../components/AdminTablaTurno';
 export default function AdminHome() {
   const dispatch = useDispatch();
   const [selectedView, setSelectedView] = useState('medics');
-
+  
   const medics = useSelector((state) => state.medics.allMedics);
+  const token = useSelector((state) => state.auth.token);
   const patients = useSelector((state) => state.patients.allPatients);
   const turnos = useSelector((state) => state.turnos.allTurnos);
 
@@ -120,10 +121,10 @@ export default function AdminHome() {
       </div>
       <div className="w-full md:w-3/4 overflow-x-auto">
         {selectedView === 'medics' && (
-          <MedicTable data={medics} onDelete={(email) => dispatch(deleteMedic(email))} />
+          <MedicTable data={medics} onDelete={(email) => dispatch(deleteMedic(email,token))} />
         )}
         {selectedView === 'patients' && (
-          <PatientTable data={patients} onDelete={(email) => dispatch(deletePatient(email))} />
+          <PatientTable data={patients} onDelete={(email) => dispatch(deletePatient(email,token))} />
         )}
         {selectedView === 'createMedics' && (
           <CreateMedico />
@@ -132,7 +133,7 @@ export default function AdminHome() {
           <CreatePaciente />
         )}
         {selectedView === 'turnos' && (
-          <TurnoTable data={turnos} onDelete={(id) => dispatch(deleteTurno(id))} />
+          <TurnoTable data={turnos} onDelete={(id) => dispatch(deleteTurno(id,token))} />
         )}
         {selectedView === 'createTurno' && (
           <CreateTurno />

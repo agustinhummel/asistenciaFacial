@@ -57,12 +57,15 @@ export const editMedic = (medicId, updatedMedicData) => async (dispatch) => {
   }
 };
 
-export const deleteMedic = (medicId) => async (dispatch) => {
+export const deleteMedic = (medicId,token) => async (dispatch) => {
   dispatch(setLoading(true));
   const apiUrl = `http://localhost:5000/medic/?email=${medicId}`;
   try {
     const response = await fetch(apiUrl, {
       method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`, 
+      },
     });
     if (!response.ok) {
       throw new Error('No se pudo eliminar al médico');

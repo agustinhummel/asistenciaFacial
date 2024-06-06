@@ -1,4 +1,5 @@
 import { setPatients, setSelectedPatient, setLoading, setError } from './PatientSlice';
+import { useSelector } from 'react-redux';
 
 export const getAllPatients = () => async (dispatch) => {
   dispatch(setLoading(true));
@@ -57,12 +58,15 @@ export const editPatient = (patientId, updatedPatientData) => async (dispatch) =
   }
 };
 
-export const deletePatient = (patientId) => async (dispatch) => {
+export const deletePatient = (patientId,token) => async (dispatch) => {
   dispatch(setLoading(true));
   const apiUrl = `http://localhost:5000/patient/?email=${patientId}`;
   try {
     const response = await fetch(apiUrl, {
       method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
     });
     if (!response.ok) {
       throw new Error('No se pudo eliminar al paciente');

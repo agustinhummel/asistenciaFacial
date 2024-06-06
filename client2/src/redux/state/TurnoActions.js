@@ -85,7 +85,7 @@ export const editTurno = (turnoId, updatedTurnoData) => async (dispatch) => {
       method: 'PUT',
       body: JSON.stringify(updatedTurnoData),
       headers: {
-        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${useSelector((state) => state.auth.token)}`, // Add the JWT token in the Authorization header
       },
     });
     if (!response.ok) {
@@ -99,8 +99,7 @@ export const editTurno = (turnoId, updatedTurnoData) => async (dispatch) => {
     dispatch(setLoading(false));
   }
 };
-// actions.js
-// actions.js
+
 export const fetchTurnoReview = (turnoId) => async (dispatch) => {
   const apiUrl = `http://localhost:5000/turno/${turnoId}`;
   try {
@@ -139,17 +138,16 @@ export const editTurnoReview = (turnoId, review) => async (dispatch) => {
 
 
 
-export const deleteTurno = (turnoId) => async (dispatch) => {
+export const deleteTurno = (turnoId, token) => async (dispatch) => {
   dispatch(setLoading(true));
   const apiUrl = `http://localhost:5000/turno/${turnoId}`;
   try {
-    const response = await fetch(apiUrl, {
+   await fetch(apiUrl, {
       method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`, // Pass token as argument
+      },
     });
-    if (!response.ok) {
-      throw new Error('No se pudo eliminar el turno');
-    }
-    const data = await response.json();
     dispatch(getAllTurnos());
   } catch (error) {
     dispatch(setError(error.message));
@@ -157,3 +155,5 @@ export const deleteTurno = (turnoId) => async (dispatch) => {
     dispatch(setLoading(false));
   }
 };
+
+

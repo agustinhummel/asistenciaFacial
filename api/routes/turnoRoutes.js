@@ -6,15 +6,15 @@ const {
   editTurno,
   deleteTurno,
   getTurno,
-  getTurnoById, // Importamos el nuevo controlador
+  getTurnoById, 
   getTurnoByMedicAndPatientId
 } = require("../controllers/Turno/index.js");
 
 router.post("/", createTurno);
 router.put("/", editTurno);
-router.delete("/", deleteTurno);
+router.delete("/:turnoId", deleteTurno);
 router.get("/", getTurno);
 router.get("/bymedicid", getTurnoByMedicAndPatientId);
-router.get("/:id", getTurnoById); // Añadimos la nueva ruta
+router.get("/:id", getTurnoById); 
 
 module.exports = router;

@@ -1,5 +1,4 @@
 "use strict";
-const bcrypt = require("bcrypt");
 const { uuid} = require("uuidv4")
 const {faker} = require('@faker-js/faker')
 /** @type {import('sequelize-cli').Migration} */
