@@ -24,7 +24,6 @@ const EditMedicForm = () => {
       form.setFieldsValue({
         fullname: selectedMedic.fullname,
         email: selectedMedic.email,
-        obraSocial: selectedMedic.obraSocial,
         dateOfBirth: moment(selectedMedic.dateOfBirth),
       });
     }
@@ -48,7 +47,6 @@ const EditMedicForm = () => {
       initialValues={{
         fullname: '',
         email: '',
-        obraSocial: '',
         dateOfBirth: '',
       }}
     >
@@ -67,14 +65,6 @@ const EditMedicForm = () => {
           { required: true, message: 'Por favor ingresa el correo electrónico' },
           { type: 'email', message: 'Por favor ingresa un correo electrónico válido' },
         ]}
-      >
-        <Input />
-      </Form.Item>
-
-      <Form.Item
-        name="obraSocial"
-        label="obraSocial"
-        rules={[{ required: true, message: 'Por favor ingresa la obraSocial' }]}
       >
         <Input />
       </Form.Item>

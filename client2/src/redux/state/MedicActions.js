@@ -33,7 +33,7 @@ export const getMedic = (medicId) => async (dispatch) => {
 
 export const editMedic = (medicId, updatedMedicData) => async (dispatch) => {
   dispatch(setLoading(true));
-  const apiUrl = `http://localhost:5000/medic${medicId}`;
+  const apiUrl = `http://localhost:5000/medic`;
   try {
     const response = await fetch(apiUrl, {
       method: 'PUT',
