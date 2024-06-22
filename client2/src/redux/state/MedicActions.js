@@ -19,12 +19,9 @@ export const getAllMedics = () => async (dispatch) => {
 
 export const getMedic = (medicId) => async (dispatch) => {
   dispatch(setLoading(true));
-  const apiUrl = `http://localhost:5000/medic/${medicId}`;
+  const apiUrl = `http://localhost:5000/medic/?id=${medicId}`;
   try {
     const response = await fetch(apiUrl);
-    if (!response.ok) {
-      throw new Error(`No se pudo obtener el medico con ID ${medicId}`);
-    }
     const data = await response.json();
     dispatch(setSelectedMedic(data.data.medic));
   } catch (error) {
@@ -48,7 +45,7 @@ export const editMedic = (medicId, updatedMedicData) => async (dispatch) => {
     if (!response.ok) {
       throw new Error('No se pudo editar al médico');
     }
-    const data = await response.json();
+    await response.json();
     dispatch(getAllMedics()); 
   } catch (error) {
     dispatch(setError(error.message));
