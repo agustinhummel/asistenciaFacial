@@ -1,17 +1,12 @@
 const { Medic } = require('../../database/models')
 const getMedic = async (req, res) => {
   try {
-    const { email } = req.query;
+    const { id } = req.query;
 
-    const medic = email
+    const medic = id
       ?
-      (await Medic.findOne({
-        where: {
-          email: email
-        }
-      }))
+      (await Medic.findByPk(id))
       : await Medic.findAll()
-
 
     return res.status(200).json({ message: 'Medic data', data: { medic } })
 

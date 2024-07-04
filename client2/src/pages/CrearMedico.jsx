@@ -37,10 +37,7 @@ const CreateMedico = () => {
         if (!valores.password) {
             errores.password = "Por favor, ingrese la Obra Social";
           }
-
-       
-
-
+          
         return errores;
       }}
       onSubmit={ async (valores, { resetForm }) => {

@@ -19,14 +19,11 @@ export const getAllTurnos = () => async (dispatch) => {
 
 export const getTurno = (turnoId) => async (dispatch) => {
   dispatch(setLoading(true));
-  const apiUrl = `http://localhost:5000/turno/${turnoId}`;
+  const apiUrl = `http://localhost:5000/turno/?turnoId=${turnoId}`;
   try {
     const response = await fetch(apiUrl);
-    if (!response.ok) {
-      throw new Error(`No se pudo obtener el turno con ID ${turnoId}`);
-    }
     const data = await response.json();
-    dispatch(setSelectedTurno(data));
+    dispatch(setSelectedTurno(data.data.turno));
   } catch (error) {
     dispatch(setError(error.message));
   } finally {

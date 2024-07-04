@@ -4,15 +4,11 @@ const { Patient} = require('../../database/models')
 
 const getPatient = async (req, res) => {
     try {
-      const { email } = req.query;
+      const { patientId } = req.query;
   
-      const patient = email
+      const patient = patientId
       ?
-      (await Patient.findOne({
-        where: {
-          email: email
-        }
-      }))
+      (await Patient.findByPk(patientId))
       : await Patient.findAll()
 
       return res.status(200).json({ message: 'Patient data', data:{patient} })

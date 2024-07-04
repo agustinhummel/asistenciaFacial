@@ -20,14 +20,11 @@ export const getAllPatients = () => async (dispatch) => {
 
 export const getPatient = (patientId) => async (dispatch) => {
   dispatch(setLoading(true));
-  const apiUrl = `http://localhost:5000/patient/${patientId}`;
+  const apiUrl = `http://localhost:5000/patient/?patientId=${patientId}`;
   try {
     const response = await fetch(apiUrl);
-    if (!response.ok) {
-      throw new Error(`No se pudo obtener el paciente con ID ${patientId}`);
-    }
     const data = await response.json();
-    dispatch(setSelectedPatient(data));
+    dispatch(setSelectedPatient(data.data.patient));
   } catch (error) {
     dispatch(setError(error.message));
   } finally {
@@ -37,7 +34,7 @@ export const getPatient = (patientId) => async (dispatch) => {
 
 export const editPatient = (patientId, updatedPatientData) => async (dispatch) => {
   dispatch(setLoading(true));
-  const apiUrl = `http://localhost:5000/patient/${patientId}`;
+  const apiUrl = `http://localhost:5000/patient`;
   try {
     const response = await fetch(apiUrl, {
       method: 'PUT',
@@ -49,7 +46,7 @@ export const editPatient = (patientId, updatedPatientData) => async (dispatch) =
     if (!response.ok) {
       throw new Error('No se pudo editar al paciente');
     }
-    const data = await response.json();
+    await response.json();
     dispatch(getAllPatients()); 
   } catch (error) {
     dispatch(setError(error.message));
