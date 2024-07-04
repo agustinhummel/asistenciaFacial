@@ -5,9 +5,9 @@ import MedicHome from "../pages/Medic.jsx";
 import AdminHome from "../pages/Admin.jsx";
 import EditMedicForm from "../pages/EditarMedico.jsx";
 import EditPatientForm from "../pages/EditarPaciente.jsx";
-import EditTurnoForm from "../pages/EditarTurno.jsx";
 import ProtectedRouteAdmin from "../components/ProtectedRouteAdmin.jsx";
 import ProtectedRouteMedic from "../components/ProtectedRouteMedic.jsx";
+import VerPatient from "../pages/VerPatient.jsx";
 
 const Login = lazy(() => import("../pages/Login.jsx"));
 
@@ -24,7 +24,7 @@ function MainLayout() {
         <Route path="/admin/edit-medic/:medicId" element={<ProtectedRouteAdmin element={<EditMedicForm />} />} />
         <Route path="/admin/edit-patient/:patientId" element={<ProtectedRouteAdmin element={<EditPatientForm />} />} />
 {/*         <Route path="/admin/edit-turno/:turnoId" element={<ProtectedRouteAdmin element={<EditTurnoForm />} />} />
- */}        <Route path="/medic/turno/bymedicid/:patientId" element={<ProtectedRouteMedic element={<EditPatientForm />} />} />
+ */}        <Route path="/medic/turno/bymedicid/:patientId" element={<ProtectedRouteMedic element={<VerPatient />} />} />
         <Route path="/medic" element={<ProtectedRouteMedic element={<MedicHome />} />} />
       </Routes>
     </>
