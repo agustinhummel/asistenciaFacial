@@ -7,6 +7,9 @@ const VerPatient = () => {
   const medicId = useSelector(state => state.auth.user.id);
   const turnos = useSelector(state => state.turnos.myTurnoByPatient);
   const dispatch = useDispatch();
+
+
+  
   const { patientId } = useParams();
 
   const formatDate = (dateString) => {
